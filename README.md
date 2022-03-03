@@ -1,3 +1,3 @@
 To run on RaspberryPI:
 
-`sudo python3 main.py`
+`sudo python3 master.py`
