@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import traceback
-from eth_account.account import Account
-from eth_account.messages import encode_defunct, defunct_hash_message
+# from eth_account.account import Account
+# from eth_account.messages import encode_defunct, defunct_hash_message
 import logging
 import os
 import struct
@@ -27,7 +27,7 @@ from ble import (
 import datetime
 import json
 from utils import *
-from eth import ETH_ACCOUNT, sign_message
+# from eth import ETH_ACCOUNT, sign_message
 import subprocess
 from agent import Agent
 # Mainloop
@@ -139,7 +139,8 @@ class SignedToken(Characteristic):
     def ReadValue(self, options):
 
         token = {"timestamp": datetime.datetime.now().isoformat()}
-        signature = sign_message(dump_json(token))
+        # signature = sign_message(dump_json(token))
+        signature = dump_json(token)
         signedToken = dump_json({"token": token, "signature": signature})
         logger.info(signedToken)
         return str.encode(signedToken)
@@ -171,17 +172,18 @@ class CPUTemp(Characteristic):
         self.value = ""
 
     def verify_token(self, data):
-        token_json = data["data"]["token"]
-        token = dump_json(token_json)
-        signature = data["data"]["signature"]
-        msg_hash = defunct_hash_message(text=token)
-        hex_sig = int(signature, 16)
-        address = Account.recoverHash(msg_hash, signature=hex_sig)
-        logger.info("Expected, recovered: %s, %s" % (self.comm_key, address))
-        if(address == self.comm_key):
-            return True
-        else:
-            return False
+        return True
+        # token_json = data["data"]["token"]
+        # token = dump_json(token_json)
+        # signature = data["data"]["signature"]
+        # msg_hash = defunct_hash_message(text=token)
+        # hex_sig = int(signature, 16)
+        # address = Account.recoverHash(msg_hash, signature=hex_sig)
+        # logger.info("Expected, recovered: %s, %s" % (self.comm_key, address))
+        # if(address == self.comm_key):
+        #     return True
+        # else:
+        #     return False
 
     def ReadValue(self, options):
         return str.encode(self.value)
