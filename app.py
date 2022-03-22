@@ -13,6 +13,7 @@ import dbus
 import dbus.exceptions
 import dbus.mainloop.glib
 import dbus.service
+import socket
 
 from ble import (
     Advertisement,
@@ -204,7 +205,7 @@ class CPUTemp(Characteristic):
 class AutoPiAdvertisement(Advertisement):
     def __init__(self, bus, index):
         Advertisement.__init__(self, bus, index, "peripheral")
-        self.add_local_name("853d00e3")
+        self.add_local_name(socket.gethostname())
         self.add_service_uuid(AutoPiS1Service.SVC_UUID)
 
 
