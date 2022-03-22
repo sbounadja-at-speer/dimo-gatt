@@ -22,7 +22,6 @@ from ble import (
     Application,
     find_adapter,
     Descriptor,
-    Agent,
 )
 import datetime
 import json
