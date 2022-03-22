@@ -52,14 +52,16 @@ class CharacteristicUserDescriptionDescriptor(Descriptor):
 
 
 def getEnvVars():
-    OWNER_ETH_ADDRESS = os.getenv("OWNER_ETH_ADDRESS")
-    COMMUNICATION_PUBLIC_KEY = os.getenv("COMMUNICATION_PUBLIC_KEY")
+    # OWNER_ETH_ADDRESS = os.getenv("OWNER_ETH_ADDRESS")
+    # COMMUNICATION_PUBLIC_KEY = os.getenv("COMMUNICATION_PUBLIC_KEY")
 
-    if not(OWNER_ETH_ADDRESS and Web3.isAddress(OWNER_ETH_ADDRESS)):
-        OWNER_ETH_ADDRESS = None
-    if not(COMMUNICATION_PUBLIC_KEY and Web3.isAddress(COMMUNICATION_PUBLIC_KEY)):
-        COMMUNICATION_PUBLIC_KEY = None
+    # if not(OWNER_ETH_ADDRESS and Web3.isAddress(OWNER_ETH_ADDRESS)):
+    #     OWNER_ETH_ADDRESS = None
+    # if not(COMMUNICATION_PUBLIC_KEY and Web3.isAddress(COMMUNICATION_PUBLIC_KEY)):
+    #     COMMUNICATION_PUBLIC_KEY = None
 
+    OWNER_ETH_ADDRESS = None
+    COMMUNICATION_PUBLIC_KEY = None
     if OWNER_ETH_ADDRESS and COMMUNICATION_PUBLIC_KEY:
         IS_PAIRED = True
     else:
