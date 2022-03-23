@@ -3,7 +3,7 @@ import dbus.exceptions
 
 from ble import Descriptor
 import os
-from web3 import Web3
+# from web3 import Web3
 
 
 class InvalidArgsException(dbus.exceptions.DBusException):
