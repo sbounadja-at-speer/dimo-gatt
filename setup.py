@@ -8,11 +8,11 @@ with open("README.md", "r") as readme_file:
 setuptools.setup(
     name="dimo-gatt",
     version="0.0.20a",
-    author="Hmac512",
+    author="DIMO",
     description="Test dimo gatt",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Hmac512/DIMO_GATT",
+    url="https://github.com/DIMO-Network/autopi-gatt",
     packages=setuptools.find_packages(exclude=['tests*']),
     entry_points={
         'console_scripts': [

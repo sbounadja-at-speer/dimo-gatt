@@ -323,6 +323,9 @@ def main():
 
     mainloop.run()
 
+    ad_manager.UnregisterAdvertisement(advertisement)
+    logger.info("Unregistering GATT application...")
+
 
 if __name__ == "__main__":
     main()
