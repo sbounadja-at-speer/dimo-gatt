@@ -291,7 +291,7 @@ def main():
     #agent_manager = dbus.Interface(obj, "org.bluez.AgentManager1")
     #agent_manager.RegisterAgent(agent_path, capability)
     #agent_manager.RequestDefaultAgent(agent_path)
-    os.system('python3 agent-test.py')
+    os.system('python3 /dimo/agent-test.py')
     logger.info("Agent registered")
 
     # logger.info("Attempting to connect to trusted devices")
