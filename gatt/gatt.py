@@ -40,7 +40,7 @@ class RxCharacteristic(Characteristic):
         dm = bytearray(value).decode()
         logger.warning(dm)
         cmd = subprocess.run(['sudo','autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE)
-        logger.warning(cmd.stdout)
+        logger.warning(cmd.stdout.decode('utf-8'))
         logger.warning('cmd: ')
         #logger.warning(str.encode(cmd))
         return str.encode('cmd: ')
