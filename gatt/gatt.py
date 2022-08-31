@@ -56,6 +56,7 @@ class RxCharacteristic(Characteristic):
                                 ['read','write'], service)
 
     def ReadValue(self, options):
+
         print('read value has been triggered')
         return str.encode('you reached read value')
 
