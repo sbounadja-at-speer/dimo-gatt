@@ -89,7 +89,7 @@ def register_ad_error_cb(error):
 
 def sigint_handler(sig, frame):
     if sig == signal.SIGINT:
-        loop.quit()
+        mainloop.quit()
     else:
         raise ValueError("Undefined handler for '{}'".format(sig))
 # Classes
