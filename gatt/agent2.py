@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
 	bus = dbus.SystemBus()
 
-	capability = "KeyboardDisplay"
+	capability = "DisplayOnly"
 
 	parser = OptionParser()
 	parser.add_option("-i", "--adapter", action="store",
