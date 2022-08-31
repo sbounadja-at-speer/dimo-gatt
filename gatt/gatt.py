@@ -144,13 +144,8 @@ class SignedToken(Characteristic):
             CharacteristicUserDescriptionDescriptor(bus, 1, self))
 
     def ReadValue(self, options):
+        return str.encode('you reached read value')
 
-        token = {"timestamp": datetime.datetime.now().isoformat()}
-        signature = sign_message(dump_json(token))
-        #signature = dump_json(token)
-        signedToken = dump_json({"token": token, "signature": signature})
-        logger.info(signedToken)
-        return str.encode(signedToken)
 
     def WriteValue(self, value, options):
         logger.info(options)
