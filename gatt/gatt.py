@@ -94,8 +94,8 @@ class UartApplication(Application):
 class UartAdvertisement(Advertisement):
     def __init__(self, bus, index):
         Advertisement.__init__(self, bus, index, 'peripheral')
-        self.add_service_uuid(UART_SERVICE_UUID)
         self.add_local_name(LOCAL_NAME)
+        self.add_service_uuid(UART_SERVICE_UUID)
         self.include_tx_power = True
 
 def find_adapter(bus):
