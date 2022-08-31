@@ -5,6 +5,7 @@ from gatt.example_advertisement import Advertisement
 from gatt.example_advertisement import register_ad_cb, register_ad_error_cb
 from gatt.example_gatt_server import Service, Characteristic
 from gatt.example_gatt_server import register_app_cb, register_app_error_cb
+import subprocess
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
