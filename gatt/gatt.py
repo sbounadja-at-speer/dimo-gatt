@@ -57,7 +57,6 @@ logger.addHandler(logHandler)
 
 # Service
 mainloop = None
-original_sigint_handler = signal.getsignal(signal.SIGINT)
 
 # Constants
 BLUEZ_SERVICE_NAME = "org.bluez"
@@ -88,7 +87,11 @@ def register_ad_error_cb(error):
     logger.critical("Failed to register advertisement: " + str(error))
     mainloop.quit()
 
-
+def sigint_handler(sig, frame):
+    if sig == signal.SIGINT:
+        loop.quit()
+    else:
+        raise ValueError("Undefined handler for '{}'".format(sig))
 # Classes
 
 class AutoPiS1Service(Service):
@@ -318,7 +321,8 @@ def main():
         error_handler=register_app_error_cb,
     )
 
-    signal.signal(signal.SIGINT, original_sigint_handler)
+    signal.signal(signal.SIGINT, sigint_handler)
+
     mainloop.run()
 
     ad_manager.UnregisterAdvertisement(advertisement)
