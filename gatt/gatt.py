@@ -280,15 +280,16 @@ def main():
     advertisement = AutoPiAdvertisement(bus, 0)
     obj = bus.get_object(BLUEZ_SERVICE_NAME, "/org/bluez")
 
-    logger.info("Registering agent")
-    capability = "NoInputNoOutput"
-    agent_path = "/dimo/agent"
-    agent = Agent(bus, agent_path)
+    #logger.info("Registering agent")
+    #capability = "NoInputNoOutput"
+    #agent_path = "/dimo/agent"
+    #agent = Agent(bus, agent_path)
+    #
+    #agent_manager = dbus.Interface(obj, "org.bluez.AgentManager1")
+    #agent_manager.RegisterAgent(agent_path, capability)
+    #agent_manager.RequestDefaultAgent(agent_path)
+    #logger.info("Agent registered")
 
-    agent_manager = dbus.Interface(obj, "org.bluez.AgentManager1")
-    agent_manager.RegisterAgent(agent_path, capability)
-    agent_manager.RequestDefaultAgent(agent_path)
-    logger.info("Agent registered")
     # logger.info("Attempting to connect to trusted devices")
 
     # try:
