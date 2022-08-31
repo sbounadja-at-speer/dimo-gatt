@@ -31,7 +31,7 @@ from gatt.utils import *
 import subprocess
 from gatt.agent import Agent
 from gatt.autoconnect import listDevices
-import agent-test
+import agent2
 # Mainloop
 MainLoop = None
 try:
@@ -292,7 +292,7 @@ def main():
     #agent_manager = dbus.Interface(obj, "org.bluez.AgentManager1")
     #agent_manager.RegisterAgent(agent_path, capability)
     #agent_manager.RequestDefaultAgent(agent_path)
-    os.system('python3 agent-test.py')
+    os.system('python3 agent2.py')
     logger.info("Agent registered")
 
     # logger.info("Attempting to connect to trusted devices")
