@@ -8,10 +8,19 @@ import sys
 import dbus
 import dbus.service
 import dbus.mainloop.glib
+MainLoop = None
 try:
-  from gi.repository import GObject
+    from gi.repository import GLib
+
+    MainLoop = GLib.MainLoop
 except ImportError:
-  import gobject as GObject
+    import gobject as GObject
+
+    MainLoop = GObject.MainLoop
+#try:
+#  from gi.repository import GObject
+#except ImportError:
+#  import gobject as GObject
 import bluezutils
 
 BUS_NAME = 'org.bluez'
@@ -154,7 +163,7 @@ if __name__ == '__main__':
 	path = "/test/agent"
 	agent = Agent(bus, path)
 
-	mainloop = GObject.MainLoop()
+	mainloop = MainLoop()
 
 	obj = bus.get_object(BUS_NAME, "/org/bluez");
 	manager = dbus.Interface(obj, "org.bluez.AgentManager1")
