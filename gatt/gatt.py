@@ -28,7 +28,7 @@ class RxCharacteristic(Characteristic):
         return str.encode('you reached read value')
 
     def WriteValue(self, value, options):
-        print('remote: {}'.format(bytearray(value).decode()))
+        #print('remote: {}'.format(bytearray(value).decode()))
         return str.encode('you reached write value')
 
 class UartService(Service):
