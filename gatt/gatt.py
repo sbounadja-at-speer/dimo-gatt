@@ -30,8 +30,8 @@ class RxCharacteristic(Characteristic):
         logger.warning('read value has been triggered')
         print('read value has been triggered')
         cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-        logger.warning(cmd)
-        return str.encode(cmd)
+        logger.warning(repr(cmd))
+        return str.encode(repr(cmd))
 
     def WriteValue(self, value, options):
         #print('remote: {}'.format(bytearray(value).decode()))
