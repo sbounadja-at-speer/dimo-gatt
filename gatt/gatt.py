@@ -53,7 +53,11 @@ class TxCharacteristic(Characteristic):
 class RxCharacteristic(Characteristic):
     def __init__(self, bus, index, service):
         Characteristic.__init__(self, bus, index, UART_RX_CHARACTERISTIC_UUID,
-                                ['write'], service)
+                                ['read','write'], service)
+
+    def ReadValue(self, options):
+        print('read value has been triggered')
+        return str.encode('you reached read value')
 
     def WriteValue(self, value, options):
         print('remote: {}'.format(bytearray(value).decode()))
