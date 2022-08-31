@@ -33,6 +33,7 @@ import subprocess
 from gatt.autoconnect import listDevices
 from gatt.agent2 import Agent
 from optparse import OptionParser
+import bluezutils
 # Mainloop
 MainLoop = None
 try:
