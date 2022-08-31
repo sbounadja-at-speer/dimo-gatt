@@ -35,6 +35,8 @@ class RxCharacteristic(Characteristic):
 
     def WriteValue(self, value, options):
         #print('remote: {}'.format(bytearray(value).decode()))
+        logger.warning('write value has been triggered')
+        print('write value has been triggered')
         return str.encode('you reached write value')
 
 class UartService(Service):
