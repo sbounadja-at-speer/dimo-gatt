@@ -314,7 +314,7 @@ def main():
 								timeout=60000)
         device_obj = device
     else:
-        manager.RequestDefaultAgent(path)
+        ag_manager.RequestDefaultAgent(path)
 
     #agent_path = "/dimo/agent"
     #agent = Agent(bus, agent_path)
