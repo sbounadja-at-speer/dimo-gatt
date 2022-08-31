@@ -33,7 +33,6 @@ class RxCharacteristic(Characteristic):
 class UartService(Service):
     def __init__(self, bus, index):
         Service.__init__(self, bus, index, UART_SERVICE_UUID, True)
-        self.add_characteristic(TxCharacteristic(bus, 0, self))
         self.add_characteristic(RxCharacteristic(bus, 1, self))
 
 class Application(dbus.service.Object):
