@@ -5,6 +5,9 @@ from gatt.example_advertisement import Advertisement
 from gatt.example_advertisement import register_ad_cb, register_ad_error_cb
 from gatt.example_gatt_server import Service, Characteristic
 from gatt.example_gatt_server import register_app_cb, register_app_error_cb
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 BLUEZ_SERVICE_NAME =           'org.bluez'
 DBUS_OM_IFACE =                'org.freedesktop.DBus.ObjectManager'
@@ -23,9 +26,10 @@ class RxCharacteristic(Characteristic):
                                 ['read','write'], service)
 
     def ReadValue(self, options):
-
+        logger.warning('read value has been triggered')
         print('read value has been triggered')
         cmd = subprocess.check_output(['autopi','crypto.query','ethereum_address'])
+        logger.warning(cmd)
         return str.encode(cmd)
 
     def WriteValue(self, value, options):
