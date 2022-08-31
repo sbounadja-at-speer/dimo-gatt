@@ -7,6 +7,7 @@ from gatt.example_gatt_server import Service, Characteristic
 from gatt.example_gatt_server import register_app_cb, register_app_error_cb
 import subprocess
 from subprocess import Popen
+import asyncio
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -37,19 +38,22 @@ class RxCharacteristic(Characteristic):
         #return str.encode(repr(cmd))
         return str.encode(self.value)
 
-    def WriteValue(self, value, options):
+    async def WriteValue(self, value, options):
         #print('remote: {}'.format(bytearray(value).decode()))
         logger.warning('write value has been triggered')
         print('write value has been triggered')
         dm = bytearray(value).decode()
         logger.warning(dm)
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-        cmd = Popen(['autopi','crypto.query','ethereum_address'])
-        cmd.wait()
+        #cmd = Popen(['autopi','crypto.query','ethereum_address'])
+        #cmd.wait()
+        cmd = await asyncio.create_subprocess_exec('autopi','crypto.query','ethereum_address',stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+        stdout,stderr = await cmd.communicate()
+        cmd.returncode();
         logger.warning('cmd output: ')
-        logger.warning(cmd)
+        logger.warning(stdout.decode())
 
-        self.value = cmd
+        self.value = stdout.decode()
         return None
 
 class UartService(Service):
@@ -133,4 +137,4 @@ def main():
         adv.Release()
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
