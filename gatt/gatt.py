@@ -47,12 +47,11 @@ class RxCharacteristic(Characteristic):
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         #cmd = Popen(['autopi','crypto.query','ethereum_address'])
         #cmd.wait()
-        cmd = await asyncio.create_subprocess_exec('autopi','crypto.query','ethereum_address',stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+        cmd = await asyncio.create_subprocess_exec('autopi','crypto.query','ethereum_address',stdout=asyncio.subprocess.PIPE)
         stdout,stderr = await cmd.communicate()
         cmd.returncode();
         logger.warning('cmd output: ')
         logger.warning(stdout.decode())
-
         self.value = stdout.decode()
         return None
 
