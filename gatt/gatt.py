@@ -295,7 +295,7 @@ def main():
     (options, args) = parser.parse_args()
     if options.capability:
         capability  = options.capability
-    path = "/dimo/agent"
+    path = "/dimo/agent2"
     agent = Agent(bus, path)
     ag_manager = dbus.Interface(obj, "org.bluez.AgentManager1")
     ag_manager.RegisterAgent(path, capability)

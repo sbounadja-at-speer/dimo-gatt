@@ -160,7 +160,7 @@ if __name__ == '__main__':
 	if options.capability:
 		capability  = options.capability
 
-	path = "/test/agent"
+	path = "/dimo/agent2"
 	agent = Agent(bus, path)
 
 	#mainloop = MainLoop()
