@@ -39,10 +39,10 @@ class RxCharacteristic(Characteristic):
         print('write value has been triggered')
         dm = bytearray(value).decode()
         logger.warning(dm)
-        cmd = subprocess.check_output(['sudo','autopi','crypto.query','ethereum_address'])
-        logger.warning(cmd)
+        #cmd = subprocess.check_output(['sudo','autopi','crypto.query','ethereum_address'])
+        #logger.warning(cmd)
         logger.warning('cmd: ')
-        logger.warning(str.encode(cmd))
+        #logger.warning(str.encode(cmd))
         return str.encode('cmd: ')
 
 class UartService(Service):
