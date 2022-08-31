@@ -287,7 +287,7 @@ def main():
     obj = bus.get_object(BLUEZ_SERVICE_NAME, "/org/bluez")
 
     logger.info("Registering agent")
-    capability = "NoInputNoOutput"
+    capability = "KeyboardOnly"
     parser = OptionParser()
     parser.add_option("-i", "--adapter", action="store",type="string",dest="adapter_pattern",default=None)
     parser.add_option("-c", "--capability", action="store",type="string", dest="capability")
