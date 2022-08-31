@@ -163,7 +163,7 @@ if __name__ == '__main__':
 	path = "/test/agent"
 	agent = Agent(bus, path)
 
-	mainloop = MainLoop()
+	#mainloop = MainLoop()
 
 	obj = bus.get_object(BUS_NAME, "/org/bluez");
 	manager = dbus.Interface(obj, "org.bluez.AgentManager1")
@@ -187,7 +187,7 @@ if __name__ == '__main__':
 	else:
 		manager.RequestDefaultAgent(path)
 
-	mainloop.run()
+	#mainloop.run()
 
 	#adapter.UnregisterAgent(path)
 	#print("Agent unregistered")
