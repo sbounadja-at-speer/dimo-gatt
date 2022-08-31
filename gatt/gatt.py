@@ -8,6 +8,7 @@ import os
 import struct
 import array
 from enum import Enum
+import signal
 
 import dbus
 import dbus.exceptions
@@ -56,6 +57,7 @@ logger.addHandler(logHandler)
 
 # Service
 mainloop = None
+original_sigint_handler = signal.getsignal(signal.SIGINT)
 
 # Constants
 BLUEZ_SERVICE_NAME = "org.bluez"
@@ -316,6 +318,7 @@ def main():
         error_handler=register_app_error_cb,
     )
 
+    signal.signal(signal.SIGINT, original_sigint_handler)
     mainloop.run()
 
     ad_manager.UnregisterAdvertisement(advertisement)
