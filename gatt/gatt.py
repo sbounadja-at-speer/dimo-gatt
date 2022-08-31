@@ -281,7 +281,7 @@ def main():
     obj = bus.get_object(BLUEZ_SERVICE_NAME, "/org/bluez")
 
     logger.info("Registering agent")
-    capability = "NoInputNoOutput"
+    capability = "KeyboardDisplay"
     agent_path = "/dimo/agent"
     agent = Agent(bus, agent_path)
 
