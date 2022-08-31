@@ -148,8 +148,8 @@ class SignedToken(Characteristic):
         )
 
         self.value = [0xFF]
-        self.add_descriptor(
-            CharacteristicUserDescriptionDescriptor(bus, 1, self))
+        #self.add_descriptor(
+        #    CharacteristicUserDescriptionDescriptor(bus, 1, self))
 
     def ReadValue(self, options):
         print('read value has been triggered')
@@ -287,7 +287,7 @@ def main():
     obj = bus.get_object(BLUEZ_SERVICE_NAME, "/org/bluez")
 
     logger.info("Registering agent")
-    capability = "KeyboardOnly"
+    capability = "NoInputNoOutput"
     parser = OptionParser()
     parser.add_option("-i", "--adapter", action="store",type="string",dest="adapter_pattern",default=None)
     parser.add_option("-c", "--capability", action="store",type="string", dest="capability")
