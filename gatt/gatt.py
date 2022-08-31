@@ -29,7 +29,7 @@ class RxCharacteristic(Characteristic):
     def ReadValue(self, options):
         logger.warning('read value has been triggered')
         print('read value has been triggered')
-        cmd = subprocess.run(['sudo','autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+        cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         logger.warning(cmd)
         return str.encode(cmd)
 
