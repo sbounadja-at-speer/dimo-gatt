@@ -149,19 +149,22 @@ class SignedToken(Characteristic):
             CharacteristicUserDescriptionDescriptor(bus, 1, self))
 
     def ReadValue(self, options):
+        print('read value has been triggered')
         return str.encode('you reached read value')
 
 
     def WriteValue(self, value, options):
-        logger.info(options)
-        logger.info(options["device"])
-        dev_disconnect(options["device"])
-        logger.info("Test Write: " + repr(value))
-        cmd = bytes(value).decode("utf-8")
-        logger.info("Decoded: " + cmd)
+        #logger.info(options)
+        #logger.info(options["device"])
+        #dev_disconnect(options["device"])
+        #logger.info("Test Write: " + repr(value))
+        #cmd = bytes(value).decode("utf-8")
+        #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
-
-        return None
+        cmd = str(value,'utf-8')
+        print('cmd: ' + cmd)
+        #return None
+        return str.encode(cmd)
 
 
 class CPUTemp(Characteristic):
