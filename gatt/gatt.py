@@ -38,7 +38,7 @@ class RxCharacteristic(Characteristic):
         logger.warning('write value has been triggered')
         print('write value has been triggered')
         dm = str(value,'utf-8')
-        print(dm)
+        logger.warning(dm)
         cmd = subprocess.check_output(['autopi','crypto.query','ethereum_address'])
         logger.warning(cmd)
         logger.warning('cmd: ')
