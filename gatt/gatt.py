@@ -29,9 +29,10 @@ import json
 from gatt.eth import sign_message
 from gatt.utils import *
 import subprocess
-from gatt.agent import Agent
+#from gatt.agent import Agent
 from gatt.autoconnect import listDevices
-#import gatt.agent2
+from gatt.agent2 import Agent
+from optparse import OptionParser
 # Mainloop
 MainLoop = None
 try:
@@ -285,14 +286,42 @@ def main():
     obj = bus.get_object(BLUEZ_SERVICE_NAME, "/org/bluez")
 
     logger.info("Registering agent")
-    #capability = "NoInputNoOutput"
+    capability = "NoInputNoOutput"
+    parser = OptionParser()
+    parser.add_option("-i", "--adapter", action="store",type="string",dest="adapter_pattern",default=None)
+    parser.add_option("-c", "--capability", action="store",type="string", dest="capability")
+    parser.add_option("-t", "--timeout", action="store",type="int", dest="timeout",default=60000)
+    (options, args) = parser.parse_args()
+    if options.capability:
+        capability  = options.capability
+    path = "/dimo/agent"
+    agent = Agent(bus, path)
+    ag_manager = dbus.Interface(obj, "org.bluez.AgentManager1")
+    ag_manager.RegisterAgent(path, capability)
+
+    # Fix-up old style invocation (BlueZ 4)
+    if len(args) > 0 and args[0].startswith("hci"):
+        options.adapter_pattern = args[0]
+        del args[:1]
+
+    if len(args) > 0:
+        device = bluezutils.find_device(args[0],
+						options.adapter_pattern)
+        dev_path = device.object_path
+        agent.set_exit_on_release(False)
+        device.Pair(reply_handler=pair_reply, error_handler=pair_error,
+								timeout=60000)
+        device_obj = device
+    else:
+        manager.RequestDefaultAgent(path)
+
     #agent_path = "/dimo/agent"
     #agent = Agent(bus, agent_path)
     #
     #agent_manager = dbus.Interface(obj, "org.bluez.AgentManager1")
     #agent_manager.RegisterAgent(agent_path, capability)
     #agent_manager.RequestDefaultAgent(agent_path)
-    os.system('python3 /usr/local/lib/python3.7/dist-packages/gatt/agent2.py')
+    #os.system('python3 /usr/local/lib/python3.7/dist-packages/gatt/agent2.py')
     logger.info("Agent registered")
 
     # logger.info("Attempting to connect to trusted devices")
