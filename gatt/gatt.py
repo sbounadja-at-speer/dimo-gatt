@@ -6,6 +6,7 @@ from gatt.example_advertisement import register_ad_cb, register_ad_error_cb
 from gatt.example_gatt_server import Service, Characteristic
 from gatt.example_gatt_server import register_app_cb, register_app_error_cb
 import subprocess
+from subprocess import Popen
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -41,7 +42,9 @@ class RxCharacteristic(Characteristic):
         print('write value has been triggered')
         dm = bytearray(value).decode()
         logger.warning(dm)
-        cmd = subprocess.run(['sudo','autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE, stderr=STDOUT).stdout.decode('utf-8')
+        #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+        cmd = Popen(['autopi','crypto.query','ethereum_address'])
+        cmd.wait()
         logger.warning(cmd)
         self.value = cmd
         return None
