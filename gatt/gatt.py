@@ -39,7 +39,7 @@ class RxCharacteristic(Characteristic):
         print('write value has been triggered')
         cmd = subprocess.check_output(['autopi','crypto.query','ethereum_address'])
         logger.warning(cmd)
-        return cmd
+        return str.encode(cmd)
 
 class UartService(Service):
     def __init__(self, bus, index):
