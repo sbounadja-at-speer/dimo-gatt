@@ -25,7 +25,8 @@ class RxCharacteristic(Characteristic):
     def ReadValue(self, options):
 
         print('read value has been triggered')
-        return str.encode('you reached read value')
+        cmd = subprocess.check_output(['autopi','crypto.query','ethereum_address'])
+        return str.encode(cmd)
 
     def WriteValue(self, value, options):
         #print('remote: {}'.format(bytearray(value).decode()))
