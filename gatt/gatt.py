@@ -37,7 +37,9 @@ class RxCharacteristic(Characteristic):
         #print('remote: {}'.format(bytearray(value).decode()))
         logger.warning('write value has been triggered')
         print('write value has been triggered')
-        return subprocess.check_output(['autopi','crypto.query','ethereum_address'])
+        cmd = subprocess.check_output(['autopi','crypto.query','ethereum_address'])
+        logger.warning(cmd)
+        return cmd
 
 class UartService(Service):
     def __init__(self, bus, index):
