@@ -41,7 +41,7 @@ class RxCharacteristic(Characteristic):
         print('write value has been triggered')
         dm = bytearray(value).decode()
         logger.warning(dm)
-        cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+        cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE, capture_output=true).stdout.decode('utf-8')
         logger.warning(cmd)
         self.value = cmd
         return None
