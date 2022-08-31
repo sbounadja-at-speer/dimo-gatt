@@ -81,6 +81,11 @@ class Advertisement(dbus.service.Object):
             self.service_uuids = []
         self.service_uuids.append(uuid)
 
+    def add_local_name(self, name):
+        if not self.local_name:
+            self.local_name = ""
+        self.local_name = dbus.String(name)
+
     def add_solicit_uuid(self, uuid):
         if not self.solicit_uuids:
             self.solicit_uuids = []
