@@ -177,7 +177,7 @@ class SignedToken(Characteristic):
         cmd2_str = bytearray(value).decode()
         logger.warning('cmd2: ' + cmd2_str)
 
-        cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+        #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
 
         #cmd = Popen(['autopi','crypto.query','ethereum_address']) 
         #cmd.wait()
@@ -192,7 +192,7 @@ class SignedToken(Characteristic):
         #cmd.returncode();
         #logger.warning(stdout.decode())
         #self.cmd_output = stdout.decode()
-        logger.warning(cmd)
+        #logger.warning(cmd)
         self.cmd_output = cmd
         #return None
 
