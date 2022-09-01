@@ -155,6 +155,7 @@ class SignedToken(Characteristic):
         self.cmd_output = 'no output assigned yet'
 
     def StartNotify(self):
+        logger.warning('triggered notification')
         return str.encode(self.cmd_output)
 
     def ReadValue(self, options):
@@ -164,6 +165,7 @@ class SignedToken(Characteristic):
         #signedToken = dump_json({"token": token, "signature": signature})
         #logger.info(signedToken)
         #return str.encode(signedToken)
+        logger.warning('triggered read value')
         return str.encode(self.cmd_output)
 
 
@@ -199,6 +201,8 @@ class SignedToken(Characteristic):
         #self.cmd_output = stdout.decode()
         logger.warning(cmd)
         self.cmd_output = cmd
+        logger.warning('self.cmd_output: ')
+        logger.warning(self.cmd_output)
         return None
 
 
