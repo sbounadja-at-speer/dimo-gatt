@@ -208,7 +208,7 @@ class SignedToken(Characteristic):
             #self.cmd_output = stdout
             cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
             logger.warning('cmd output:')
-            logger.warning(stdout)
+            logger.warning(cmd)
             self.cmd_output = cmd
 
         except (RuntimeError, TypeError, NameError):
