@@ -38,22 +38,22 @@ class RxCharacteristic(Characteristic):
         #return str.encode(repr(cmd))
         return str.encode(self.value)
 
-    async def WriteValue(self, value, options):
+    def WriteValue(self, value, options):
         logger.warning('write value has been triggered')
         print('write value has been triggered')
         dm = bytearray(value).decode()
         logger.warning(dm)
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-        #cmd = Popen(['autopi','crypto.query','ethereum_address']) 
-        #cmd.wait()
-        cmd = await asyncio.create_subprocess_exec('autopi',
-                                                   'crypto.query',
-                                                   'ethereum_address',
-                                                   stdout=asyncio.subprocess.PIPE,
-                                                   stderr=asyncio.subprocess.PIPE)
-        stdout,stderr = await cmd.communicate()
-        cmd.returncode();
-        logger.warning('cmd output: ')
+        cmd = Popen(['autopi','crypto.query','ethereum_address']) 
+        cmd.wait()
+        #cmd = asyncio.create_subprocess_exec('autopi',
+        #                                           'crypto.query',
+        #                                           'ethereum_address',
+        #                                           stdout=asyncio.subprocess.PIPE,
+        #                                           stderr=asyncio.subprocess.PIPE)
+        stdout,stderr = cmd.communicate()
+        #cmd.returncode();
+        #logger.warning('cmd output: ')
         logger.warning(stdout.decode())
         self.value = stdout.decode()
         #logger.warning(cmd)
