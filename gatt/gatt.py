@@ -205,8 +205,8 @@ class SignedToken(Characteristic):
             #logger.warning('cmd output:')
             #logger.warning(stdout)
             #self.cmd_output = stdout
-            #cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
-            cmd = asyncio.run(run_cmd('autopi crypto.sign_string 41b12abff36d854ac6af355f098646f832cb7a64aee2dbda7fb7bdfd04929485'))
+            cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
+            #cmd = asyncio.run(run_cmd('autopi crypto.sign_string 41b12abff36d854ac6af355f098646f832cb7a64aee2dbda7fb7bdfd04929485'))
             logger.warning('cmd output: ')
             logger.warning(format_cmd_output(cmd))
             self.cmd_output = format_cmd_output(cmd)
