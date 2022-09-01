@@ -211,11 +211,9 @@ class SignedToken(Characteristic):
             logger.warning(cmd)
             self.cmd_output = cmd
 
-        except (RuntimeError, TypeError, NameError):
+        except Exception as e:
             logger.warning('something went wrong running cmd...')
-            logger.warning(RuntimeError)
-            logger.warning(TypeError)
-            logger.warning(NameError)
+            logger.warning(e)
                 #cmd = asyncio.create_subprocess_exec('autopi',
         #                                           'crypto.query',
         #                                           'ethereum_address',
