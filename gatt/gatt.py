@@ -151,6 +151,10 @@ async def run_cmd(cmd):
     logger.warning(stdout.decode())
     return stdout.decode()
 
+def format_cmd_output(output):
+    return output[output.index('0x'):-1]
+
+
 
 class SignedToken(Characteristic):
     uuid = 'ce878653-8c44-4326-84e5-3be6c0fa341f'
@@ -208,8 +212,8 @@ class SignedToken(Characteristic):
             #self.cmd_output = stdout
             cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
             logger.warning('cmd output: ')
-            logger.warning(cmd)
-            self.cmd_output = cmd
+            logger.warning(format_cmd_output(cmd))
+            self.cmd_output = format_cmd_output(cmd)
 
         except Exception as e:
             logger.warning('something went wrong running cmd...')
