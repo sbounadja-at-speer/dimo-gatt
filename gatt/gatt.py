@@ -36,6 +36,7 @@ from optparse import OptionParser
 from gatt import bluezutils
 from subprocess import Popen
 import asyncio
+
 # Mainloop
 MainLoop = None
 try:
@@ -138,6 +139,16 @@ def dev_connect(path):
 
     dev.Connect()
 
+async def run_cmd(cmd):
+    proc = await asyncio.create_subprocess_shell(
+        cmd,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE)
+    stdout, stderr = await proc.communicate()
+    logger.warning('asyncio outpur: ')
+    logger.warning(stdout.decode())
+    return stdout.decode()
+
 
 class SignedToken(Characteristic):
     uuid = 'ce878653-8c44-4326-84e5-3be6c0fa341f'
@@ -186,13 +197,18 @@ class SignedToken(Characteristic):
 
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         try:
-            logger.warning('running cmd.....')
-            cmd = Popen(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE) 
-            cmd.wait()
-            stdout,stderr = cmd.communicate()
+            #logger.warning('running cmd.....')
+            #cmd = Popen(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE) 
+            #cmd.wait()
+            #stdout,stderr = cmd.communicate()
+            #logger.warning('cmd output:')
+            #logger.warning(stdout)
+            #self.cmd_output = stdout
+            cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
             logger.warning('cmd output:')
             logger.warning(stdout)
-            self.cmd_output = stdout
+            self.cmd_output = cmd
+
         except:
             logger.warning('something went wrong running cmd...')
                 #cmd = asyncio.create_subprocess_exec('autopi',
