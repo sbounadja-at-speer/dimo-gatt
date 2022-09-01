@@ -172,10 +172,13 @@ class SignedToken(Characteristic):
         #cmd = bytes(value).decode("utf-8")
         #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
-        cmd_str = str(value,'utf-8')
-        logger.warning('cmd: ' + cmd_str)
-        cmd2_str = bytearray(value).decode()
-        logger.warning('cmd2: ' + cmd2_str)
+        logger.warning('cmd: ')
+        logger.info('cmd: info')
+        print('cmd print')
+        #cmd_str = str(value,'utf-8')
+        #logger.warning('cmd: ' + cmd_str)
+        #cmd2_str = bytearray(value).decode()
+        #logger.warning('cmd2: ' + cmd2_str)
 
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
 
