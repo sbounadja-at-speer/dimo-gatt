@@ -174,7 +174,6 @@ class SignedToken(Characteristic):
         #os.system('autopi audio.speak "' + cmd + '"')
         logger.warning('cmd: ')
         logger.info('cmd: info')
-        print('cmd print')
         #cmd_str = str(value,'utf-8')
         #logger.warning('cmd: ' + cmd_str)
         #cmd2_str = bytearray(value).decode()
@@ -196,8 +195,8 @@ class SignedToken(Characteristic):
         #logger.warning(stdout.decode())
         #self.cmd_output = stdout.decode()
         #logger.warning(cmd)
-        self.cmd_output = cmd
-        #return None
+        #self.cmd_output = cmd
+        return None
 
 
 class CPUTemp(Characteristic):
