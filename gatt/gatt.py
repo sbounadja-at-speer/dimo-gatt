@@ -140,6 +140,8 @@ def dev_connect(path):
     dev.Connect()
 
 async def run_cmd(cmd):
+    logger.warning('running cmd: ')
+    logger.warning(cmd)
     proc = await asyncio.create_subprocess_shell(
         cmd,
         stdout=asyncio.subprocess.PIPE,
