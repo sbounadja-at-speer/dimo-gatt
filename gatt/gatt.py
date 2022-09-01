@@ -186,10 +186,13 @@ class SignedToken(Characteristic):
 
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         try:
+            logger.warning('running cmd.....')
             cmd = Popen(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE) 
             cmd.wait()
             stdout,stderr = cmd.communicate()
+            logger.warning('cmd output:')
             logger.warning(stdout)
+            self.cmd_output = stdout
         except:
             logger.warning('something went wrong running cmd...')
                 #cmd = asyncio.create_subprocess_exec('autopi',
@@ -204,8 +207,8 @@ class SignedToken(Characteristic):
         #self.cmd_output = stdout.decode()
         #logger.warning(cmd)
         #self.cmd_output = cmd
-        #logger.warning('self.cmd_output: ')
-        #logger.warning(self.cmd_output)
+        logger.warning('self.cmd_output: ')
+        logger.warning(self.cmd_output)
         return None
 
 
