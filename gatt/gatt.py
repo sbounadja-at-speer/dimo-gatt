@@ -34,6 +34,8 @@ from gatt.autoconnect import listDevices
 #from gatt.agent2 import Agent
 from optparse import OptionParser
 from gatt import bluezutils
+from subprocess import Popen
+import asyncio
 # Mainloop
 MainLoop = None
 try:
@@ -171,14 +173,14 @@ class SignedToken(Characteristic):
         #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
         cmd_str = str(value,'utf-8')
-        print('cmd: ' + cmd_str)
+        logger.warning('cmd: ' + cmd_str)
         cmd2_str = bytearray(value).decode()
-        print('cmd2: ' + cmd2_str)
+        logger.warning('cmd2: ' + cmd2_str)
 
-        #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+        cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
 
-        cmd = Popen(['autopi','crypto.query','ethereum_address']) 
-        cmd.wait()
+        #cmd = Popen(['autopi','crypto.query','ethereum_address']) 
+        #cmd.wait()
 
                 #cmd = asyncio.create_subprocess_exec('autopi',
         #                                           'crypto.query',
@@ -186,12 +188,12 @@ class SignedToken(Characteristic):
         #                                           stdout=asyncio.subprocess.PIPE,
         #                                           stderr=asyncio.subprocess.PIPE)
 
-        stdout,stderr = cmd.communicate()
+        #stdout,stderr = cmd.communicate()
         #cmd.returncode();
-        logger.warning(stdout.decode())
-        self.cmd_output = stdout.decode()
-        #print(cmd)
-        #self.value = cmd
+        #logger.warning(stdout.decode())
+        #self.cmd_output = stdout.decode()
+        logger.warning(cmd)
+        self.cmd_output = cmd
         #return None
 
 
