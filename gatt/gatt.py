@@ -207,7 +207,7 @@ class SignedToken(Characteristic):
             #logger.warning(stdout)
             #self.cmd_output = stdout
             cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
-            logger.warning('cmd output:')
+            logger.warning('cmd output: ')
             logger.warning(cmd)
             self.cmd_output = cmd
 
@@ -226,7 +226,7 @@ class SignedToken(Characteristic):
         #self.cmd_output = stdout.decode()
         #logger.warning(cmd)
         #self.cmd_output = cmd
-        logger.warning('self.cmd_output: ')
+        logger.warning('self.cmd_output: ++++++++++++++++++')
         logger.warning(self.cmd_output)
         return None
 
