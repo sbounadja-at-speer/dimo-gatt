@@ -41,9 +41,9 @@ class RxCharacteristic(Characteristic):
     def WriteValue(self, value, options):
         logger.warning('write value has been triggered')
         print('write value has been triggered')
-        #dm = bytearray(value).decode()
-        #logger.warning(dm)
-        #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+        dm = bytearray(value).decode()
+        logger.warning(dm)
+        cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         #cmd = Popen(['autopi','crypto.query','ethereum_address']) 
         #cmd.wait()
         #cmd = await asyncio.create_subprocess_exec('autopi',
@@ -56,8 +56,8 @@ class RxCharacteristic(Characteristic):
         #logger.warning('cmd output: ')
         #logger.warning(stdout.decode())
         #self.value = stdout.decode()
-        #logger.warning(cmd)
-        #self.value = cmd
+        logger.warning(cmd)
+        self.value = cmd
         return None
 
 class UartService(Service):
