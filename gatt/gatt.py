@@ -38,7 +38,7 @@ class RxCharacteristic(Characteristic):
         #return str.encode(repr(cmd))
         return str.encode(self.value)
 
-    async def WriteValue(self, value, options):
+    def WriteValue(self, value, options):
         logger.warning('write value has been triggered')
         print('write value has been triggered')
         #dm = bytearray(value).decode()
