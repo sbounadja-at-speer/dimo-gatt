@@ -148,7 +148,7 @@ async def run_cmd(cmd):
     return stdout.decode()
 
 def format_cmd_output(output):
-    return output[output.index('0x'):-2]
+    return output[output.index('0x'):-3]
 
 
 
@@ -190,12 +190,11 @@ class SignedToken(Characteristic):
         #cmd = bytes(value).decode("utf-8")
         #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
-        logger.warning('cmd: ')
-        logger.info('cmd: info')
+        #logger.warning('cmd: ')
         #cmd_str = str(value,'utf-8')
         #logger.warning('cmd: ' + cmd_str)
         cmd2_str = bytearray(value).decode()
-        logger.warning('cmd2: ' + cmd2_str)
+        logger.warning('cmd: ' + cmd2_str)
 
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         try:
