@@ -198,7 +198,7 @@ class SignedToken(Characteristic):
         #logger.warning(stdout.decode())
         #self.cmd_output = stdout.decode()
         logger.warning(cmd)
-        #self.cmd_output = cmd
+        self.cmd_output = cmd
         return None
 
 
