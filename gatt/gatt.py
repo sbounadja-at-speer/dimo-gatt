@@ -41,8 +41,8 @@ class RxCharacteristic(Characteristic):
     async def WriteValue(self, value, options):
         logger.warning('write value has been triggered')
         print('write value has been triggered')
-        dm = bytearray(value).decode()
-        logger.warning(dm)
+        #dm = bytearray(value).decode()
+        #logger.warning(dm)
         #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         #cmd = Popen(['autopi','crypto.query','ethereum_address']) 
         #cmd.wait()
