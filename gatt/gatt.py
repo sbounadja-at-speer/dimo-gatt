@@ -9,7 +9,7 @@ import struct
 import array
 from enum import Enum
 import signal
-
+import sys
 import dbus
 import dbus.exceptions
 import dbus.mainloop.glib
