@@ -154,6 +154,9 @@ class SignedToken(Characteristic):
             CharacteristicUserDescriptionDescriptor(bus, 1, self))
         self.cmd_output = 'no output assigned yet'
 
+    def StartNotify(self):
+        return str.encode(self.cmd_output)
+
     def ReadValue(self, options):
         #token = {"timestamp": datetime.datetime.now().isoformat()}
         #signature = sign_message(dump_json(token))
