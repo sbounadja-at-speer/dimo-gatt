@@ -221,7 +221,9 @@ class SignedToken(Characteristic):
             #logger.warning(format_cmd_output(cmd))
             #self.service.cmd_output = format_cmd_output(cmd)
             #self.cmd_output = 'autopi crypto.query ethereum_address'
-            os.open('cmd_output.txt', os.O_CREAT|os.O_WRONLY).write('hey there you have reached the file cmd_output.txt')
+            f = os.open('cmd_output.txt', os.O_CREAT|os.O_WRONLY)
+            os.write(f,'hey there you have reached the file cmd_output.txt')
+            os.close(f)
         except Exception as e:
             logger.warning('something went wrong running cmd...')
             logger.warning(e)
