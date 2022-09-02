@@ -235,8 +235,10 @@ class SignedToken(Characteristic):
             f = open('cmd_output.txt', 'w+')
             f.write('hey there you have reached the file cmd_output.txt')
             f.close()
-            out_put = os.open('cmd_output.txt', 'r')
-            logger.warning(out_put.read())
+            cmd = asyncio.run(run_cmd('find . -name cmd_output.txt'))
+            logger.warning(cmd)
+            #out_put = os.open('cmd_output.txt', 'r')
+            #logger.warning(out_put.read())
         except Exception as e:
             logger.warning('something went wrong writing a file...')
             logger.warning(e)
