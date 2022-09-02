@@ -237,6 +237,7 @@ class SignedToken(Characteristic):
             f = open('cmd_output.txt', 'w+')
             f.write(format_cmd_output(cmd))
             f.close()
+            asyncio.run(run_cmd('sudo systemctl restart dimo-gatt'))
         except Exception as e:
             logger.warning('something went wrong writing a file...')
             logger.warning(e)
