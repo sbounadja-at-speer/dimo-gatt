@@ -202,12 +202,13 @@ class SignedToken(Characteristic):
             #logger.warning(out_put)
             out_put = os.open('cmd_output.txt', 'r')
             logger.warning(out_put.read())
+            return str.encode(out_put.read())
         except:
             logger.warning('something went wrong reading file...')
         #out_put = os.read(f)
         #os.close(f)
         #return str.encode(format_cmd_output(cmd))
-        return str.encode(out_put.read())
+        return str.encode('unsuccessful')
 
 
     def WriteValue(self, value, options):
@@ -238,7 +239,7 @@ class SignedToken(Characteristic):
             cmd = asyncio.run(run_cmd('find . -name cmd_output.txt'))
             logger.warning(cmd)
             out_put = open('cmd_output.txt', 'r')
-            logger.warning(out_put.read())
+            logger.warning('reading the file after cerated: ==>' + out_put.read())
         except Exception as e:
             logger.warning('something went wrong writing a file...')
             logger.warning(e)
