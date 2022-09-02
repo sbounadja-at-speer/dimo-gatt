@@ -200,7 +200,7 @@ class SignedToken(Characteristic):
         try:
             #out_put = os.open('cmd_output.txt').read()
             #logger.warning(out_put)
-            out_put = os.open('cmd_output.txt', 'r')
+            out_put = open('cmd_output.txt', 'r')
             logger.warning(out_put.read())
             return str.encode(out_put.read())
         except:
