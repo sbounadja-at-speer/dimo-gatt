@@ -165,6 +165,7 @@ class CMDOutput(Characteristic):
         )
 
     def ReadValue(self, options):
+        logger.warning('reading cmd output')
         return str.encode(self.service.cmd_output)
 
 class SignedToken(Characteristic):
