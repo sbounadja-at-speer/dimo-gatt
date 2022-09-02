@@ -220,8 +220,6 @@ class SignedToken(Characteristic):
         #cmd = bytes(value).decode("utf-8")
         #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
-        logger.info(options["device"])
-        dev_disconnect(options["device"])
 
         hashed_payload = bytearray(value).decode()
         logger.warning('hashed payload: ' + hashed_payload)
