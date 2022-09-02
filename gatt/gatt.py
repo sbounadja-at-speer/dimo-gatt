@@ -113,7 +113,7 @@ class AutoPiS1Service(Service):
         Service.__init__(self, bus, index, self.SVC_UUID, True)
         self.add_characteristic(SignedToken(bus, 0, self))
         IS_PAIRED, OWNER_ETH_ADDRESS, COMMUNICATION_PUBLIC_KEY = getEnvVars()
-        self.cmd_output = 'no output assigned yet'
+        #self.cmd_output = 'no output assigned yet'
 
         if(IS_PAIRED):
             self.isPaired = True
@@ -123,7 +123,7 @@ class AutoPiS1Service(Service):
             self.isPaired = False
             self.comm_key = None
 
-        self.add_characteristic(CMDOutput(bus, 2, self))
+        #self.add_characteristic(CMDOutput(bus, 2, self))
 
 
 def dump_json(data):
@@ -154,19 +154,19 @@ async def run_cmd(cmd):
 def format_cmd_output(output):
     return output[output.index('0x'):-3]
 
-class CMDOutput(Characteristic):
-    uuid = 'ce878688-8c44-4326-84e5-3be6c0fa341f'
-    description = b'Read CMD output'
-
-    def __init__(self, bus, index, service):
-        Characteristic.__init__(
-            self, bus, index, self.uuid, [
-                "read"], service,
-        )
-
-    def ReadValue(self, options):
-        logger.warning('reading cmd output')
-        return str.encode(self.service.cmd_output)
+#class CMDOutput(Characteristic):
+#    uuid = 'ce878688-8c44-4326-84e5-3be6c0fa341f'
+#    description = b'Read CMD output'
+#
+#    def __init__(self, bus, index, service):
+#        Characteristic.__init__(
+#            self, bus, index, self.uuid, [
+#                "read"], service,
+#        )
+#
+#    def ReadValue(self, options):
+#        logger.warning('reading cmd output')
+#        return str.encode(self.service.cmd_output)
 
 class SignedToken(Characteristic):
     uuid = 'ce878653-8c44-4326-84e5-3be6c0fa341f'
@@ -181,11 +181,7 @@ class SignedToken(Characteristic):
         self.value = [0xFF]
         self.add_descriptor(
             CharacteristicUserDescriptionDescriptor(bus, 1, self))
-        self.cmd_output = 'no output'
-
-    def StartNotify(self):
-        logger.warning('triggered notification')
-        return str.encode(self.cmd_output)
+        #self.cmd_output = 'no output'
 
     def ReadValue(self, options):
         #token = {"timestamp": datetime.datetime.now().isoformat()}
@@ -237,7 +233,7 @@ class SignedToken(Characteristic):
             f = open('cmd_output.txt', 'w+')
             f.write(format_cmd_output(cmd))
             f.close()
-            asyncio.run(run_cmd('sudo systemctl restart dimo-gatt && sudo /usr/local/bin/dimo_gatt'))
+            #asyncio.run(run_cmd('sudo systemctl restart dimo-gatt && sudo /usr/local/bin/dimo_gatt'))
         except Exception as e:
             logger.warning('something went wrong writing a file...')
             logger.warning(e)
