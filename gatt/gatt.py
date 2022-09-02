@@ -197,9 +197,9 @@ class SignedToken(Characteristic):
         logger.warning('triggered read value')
         #cmd = asyncio.run(run_cmd(self.cmd_output))
         #logger.warning(format_cmd_output(cmd))
-        f = os.open('cmd_output.txt')
-        out_put = os.read(f)
-        os.close(f)
+        out_put = os.open('cmd_output.txt').read()
+        #out_put = os.read(f)
+        #os.close(f)
         #return str.encode(format_cmd_output(cmd))
         return str.encode(out_put)
 
