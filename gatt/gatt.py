@@ -236,8 +236,6 @@ class SignedToken(Characteristic):
             f = open('cmd_output.txt', 'w+')
             f.write('hey there you have reached the file cmd_output.txt')
             f.close()
-            cmd = asyncio.run(run_cmd('find . -name cmd_output.txt'))
-            logger.warning(cmd)
             out_put = open('cmd_output.txt', 'r')
             logger.warning('reading the file after cerated: ==>' + out_put.read())
         except Exception as e:
