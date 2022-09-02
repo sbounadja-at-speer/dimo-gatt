@@ -197,7 +197,9 @@ class SignedToken(Characteristic):
         logger.warning('triggered read value')
         #cmd = asyncio.run(run_cmd(self.cmd_output))
         #logger.warning(format_cmd_output(cmd))
-        out_put = os.open('cmd_output.txt').read()
+        f = os.open('cmd_output.txt')
+        out_put = os.read(f)
+        os.close(f)
         #return str.encode(format_cmd_output(cmd))
         return str.encode(out_put)
 
@@ -221,7 +223,7 @@ class SignedToken(Characteristic):
             #logger.warning(format_cmd_output(cmd))
             #self.service.cmd_output = format_cmd_output(cmd)
             #self.cmd_output = 'autopi crypto.query ethereum_address'
-            f = os.open('cmd_output.txt', os.O_CREAT|os.O_WRONLY)
+            f = os.open('cmd_output.txt', os.O_RDWR|os.O_CREAT)
             os.write(f,'hey there you have reached the file cmd_output.txt')
             os.close(f)
         except Exception as e:
