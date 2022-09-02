@@ -201,8 +201,9 @@ class SignedToken(Characteristic):
             #out_put = os.open('cmd_output.txt').read()
             #logger.warning(out_put)
             out_put = open('cmd_output.txt', 'r')
-            logger.warning(out_put.read())
-            return str.encode(out_put.read())
+            txt = out_put.read()
+            logger.warning(txt)
+            return str.encode(txt)
         except:
             logger.warning('something went wrong reading file...')
         #out_put = os.read(f)
@@ -236,8 +237,6 @@ class SignedToken(Characteristic):
             f = open('cmd_output.txt', 'w+')
             f.write('hey there you have reached the file cmd_output.txt')
             f.close()
-            out_put = open('cmd_output.txt', 'r')
-            logger.warning('reading the file after cerated: ==>' + out_put.read())
         except Exception as e:
             logger.warning('something went wrong writing a file...')
             logger.warning(e)
