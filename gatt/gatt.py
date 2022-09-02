@@ -211,19 +211,20 @@ class SignedToken(Characteristic):
         logger.warning('cmd: ' + cmd2_str)
 
         try:
-            cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
+            #cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
             #cmd = asyncio.run(run_cmd('autopi crypto.sign_string 41b12abff36d854ac6af355f098646f832cb7a64aee2dbda7fb7bdfd04929485'))
-            logger.warning('cmd output: ')
-            logger.warning(format_cmd_output(cmd))
-            self.service.cmd_output = format_cmd_output(cmd)
+            #logger.warning('cmd output: ')
+            #logger.warning(format_cmd_output(cmd))
+            #self.service.cmd_output = format_cmd_output(cmd)
+            self.cmd_output = 'autopi crypto.query ethereum_address'
 
         except Exception as e:
             logger.warning('something went wrong running cmd...')
             logger.warning(e)
 
         #self.cmd_output = cmd
-        logger.warning('self.cmd_output: ++++++++++++++++++')
-        logger.warning(self.service.cmd_output)
+        #logger.warning('self.cmd_output: ++++++++++++++++++')
+        #logger.warning(self.service.cmd_output)
 
 
 class CPUTemp(Characteristic):
