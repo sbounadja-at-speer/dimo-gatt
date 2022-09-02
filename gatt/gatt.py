@@ -195,9 +195,11 @@ class SignedToken(Characteristic):
         #logger.info(signedToken)
         #return str.encode(signedToken)
         logger.warning('triggered read value')
-        cmd = asyncio.run(run_cmd(self.cmd_output))
-        logger.warning(format_cmd_output(cmd))
-        return str.encode(format_cmd_output(cmd))
+        #cmd = asyncio.run(run_cmd(self.cmd_output))
+        #logger.warning(format_cmd_output(cmd))
+        out_put = os.open('cmd_output.txt').read()
+        #return str.encode(format_cmd_output(cmd))
+        return str.encode(out_put)
 
 
     def WriteValue(self, value, options):
@@ -209,8 +211,8 @@ class SignedToken(Characteristic):
         #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
 
-        cmd2_str = bytearray(value).decode()
-        logger.warning('cmd: ' + cmd2_str)
+        hashed_payload = bytearray(value).decode()
+        logger.warning('hashed payload: ' + hashed_payload)
 
         try:
             #cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
@@ -218,8 +220,8 @@ class SignedToken(Characteristic):
             #logger.warning('cmd output: ')
             #logger.warning(format_cmd_output(cmd))
             #self.service.cmd_output = format_cmd_output(cmd)
-            self.cmd_output = 'autopi crypto.query ethereum_address'
-
+            #self.cmd_output = 'autopi crypto.query ethereum_address'
+            os.open('cmd_output.txt','w+').write('hey there you have reached the file cmd_output.txt')
         except Exception as e:
             logger.warning('something went wrong running cmd...')
             logger.warning(e)
