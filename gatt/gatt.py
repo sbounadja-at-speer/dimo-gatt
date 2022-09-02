@@ -198,14 +198,16 @@ class SignedToken(Characteristic):
         #cmd = asyncio.run(run_cmd(self.cmd_output))
         #logger.warning(format_cmd_output(cmd))
         try:
-            out_put = os.open('cmd_output.txt').read()
-            logger.warning(out_put)
+            #out_put = os.open('cmd_output.txt').read()
+            #logger.warning(out_put)
+            out_put = os.open('cmd_output.txt', 'r')
+            logger.warning(out_put.read())
         except:
             logger.warning('something went wrong reading file...')
         #out_put = os.read(f)
         #os.close(f)
         #return str.encode(format_cmd_output(cmd))
-        return str.encode(out_put)
+        return str.encode(out_put.read())
 
 
     def WriteValue(self, value, options):
@@ -227,11 +229,14 @@ class SignedToken(Characteristic):
             #logger.warning(format_cmd_output(cmd))
             #self.service.cmd_output = format_cmd_output(cmd)
             #self.cmd_output = 'autopi crypto.query ethereum_address'
-            f = os.open('cmd_output.txt', os.O_CREAT|os.O_RDWR)
-            os.write(f,str.encode('hey there you have reached the file cmd_output.txt'))
-            os.close(f)
+            #f = os.open('cmd_output.txt', os.O_CREAT|os.O_RDWR)
+            #os.write(f,str.encode('hey there you have reached the file cmd_output.txt'))
+            #os.close(f)
+            f = open('cmd_output.txt', 'w')
+            f.write('hey there you have reached the file cmd_output.txt')
+            f.close()
         except Exception as e:
-            logger.warning('something went wrong running cmd...')
+            logger.warning('something went wrong writing a file...')
             logger.warning(e)
 
         #self.cmd_output = cmd
