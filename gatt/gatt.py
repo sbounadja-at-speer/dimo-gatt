@@ -113,6 +113,8 @@ class AutoPiS1Service(Service):
         Service.__init__(self, bus, index, self.SVC_UUID, True)
         self.add_characteristic(SignedToken(bus, 0, self))
         IS_PAIRED, OWNER_ETH_ADDRESS, COMMUNICATION_PUBLIC_KEY = getEnvVars()
+        self.cmd_output = 'no output assigned yet'
+
         if(IS_PAIRED):
             self.isPaired = True
             self.comm_key = COMMUNICATION_PUBLIC_KEY
@@ -120,6 +122,8 @@ class AutoPiS1Service(Service):
         else:
             self.isPaired = False
             self.comm_key = None
+
+        self.add_characteristic(CMDOutput(bus, 2, self))
 
 
 def dump_json(data):
@@ -150,7 +154,18 @@ async def run_cmd(cmd):
 def format_cmd_output(output):
     return output[output.index('0x'):-3]
 
+class CMDOutput(Characteristic):
+    uuid = 'ce878688-8c44-4326-84e5-3be6c0fa341f'
+    description = b'Read CMD output'
 
+    def __init__(self, bus, index, service):
+        Characteristic.__init__(
+            self, bus, index, self.uuid, [
+                "read"], service,
+        )
+
+    def ReadValue(self, options):
+        return str.encode(self.service.cmd_output)
 
 class SignedToken(Characteristic):
     uuid = 'ce878653-8c44-4326-84e5-3be6c0fa341f'
@@ -165,7 +180,7 @@ class SignedToken(Characteristic):
         self.value = [0xFF]
         self.add_descriptor(
             CharacteristicUserDescriptionDescriptor(bus, 1, self))
-        self.cmd_output = 'no output assigned yet'
+        self.cmd_output = 'no output'
 
     def StartNotify(self):
         logger.warning('triggered notification')
@@ -190,45 +205,24 @@ class SignedToken(Characteristic):
         #cmd = bytes(value).decode("utf-8")
         #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
-        #logger.warning('cmd: ')
-        #cmd_str = str(value,'utf-8')
-        #logger.warning('cmd: ' + cmd_str)
+
         cmd2_str = bytearray(value).decode()
         logger.warning('cmd: ' + cmd2_str)
 
-        #cmd = subprocess.run(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         try:
-            #logger.warning('running cmd.....')
-            #cmd = Popen(['autopi','crypto.query','ethereum_address'], stdout=subprocess.PIPE) 
-            #cmd.wait()
-            #stdout,stderr = cmd.communicate()
-            #logger.warning('cmd output:')
-            #logger.warning(stdout)
-            #self.cmd_output = stdout
             cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
             #cmd = asyncio.run(run_cmd('autopi crypto.sign_string 41b12abff36d854ac6af355f098646f832cb7a64aee2dbda7fb7bdfd04929485'))
             logger.warning('cmd output: ')
             logger.warning(format_cmd_output(cmd))
-            self.cmd_output = format_cmd_output(cmd)
+            self.service.cmd_output = format_cmd_output(cmd)
 
         except Exception as e:
             logger.warning('something went wrong running cmd...')
             logger.warning(e)
-                #cmd = asyncio.create_subprocess_exec('autopi',
-        #                                           'crypto.query',
-        #                                           'ethereum_address',
-        #                                           stdout=asyncio.subprocess.PIPE,
-        #                                           stderr=asyncio.subprocess.PIPE)
 
-        #stdout,stderr = cmd.communicate()
-        #cmd.returncode();
-        #logger.warning(stdout.decode())
-        #self.cmd_output = stdout.decode()
-        #logger.warning(cmd)
         #self.cmd_output = cmd
         logger.warning('self.cmd_output: ++++++++++++++++++')
-        logger.warning(self.cmd_output)
-        return None
+        logger.warning(self.service.cmd_output)
 
 
 class CPUTemp(Characteristic):
