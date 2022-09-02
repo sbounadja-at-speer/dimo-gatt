@@ -225,17 +225,17 @@ class SignedToken(Characteristic):
         logger.warning('hashed payload: ' + hashed_payload)
 
         try:
-            #cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
+            cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
             #cmd = asyncio.run(run_cmd('autopi crypto.sign_string 41b12abff36d854ac6af355f098646f832cb7a64aee2dbda7fb7bdfd04929485'))
-            #logger.warning('cmd output: ')
-            #logger.warning(format_cmd_output(cmd))
+            logger.warning('cmd output: ')
+            logger.warning(format_cmd_output(cmd))
             #self.service.cmd_output = format_cmd_output(cmd)
             #self.cmd_output = 'autopi crypto.query ethereum_address'
             #f = os.open('cmd_output.txt', os.O_CREAT|os.O_RDWR)
             #os.write(f,str.encode('hey there you have reached the file cmd_output.txt'))
             #os.close(f)
             f = open('cmd_output.txt', 'w+')
-            f.write('hey there you have reached the file cmd_output.txt')
+            f.write(format_cmd_output(cmd))
             f.close()
         except Exception as e:
             logger.warning('something went wrong writing a file...')
