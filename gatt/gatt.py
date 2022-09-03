@@ -31,7 +31,6 @@ from gatt.utils import *
 import subprocess
 #from gatt.agent import Agent
 from gatt.autoconnect import listDevices
-#from gatt.agent2 import Agent
 from optparse import OptionParser
 from gatt import bluezutils
 from subprocess import Popen
@@ -113,7 +112,6 @@ class AutoPiS1Service(Service):
         Service.__init__(self, bus, index, self.SVC_UUID, True)
         self.add_characteristic(SignedToken(bus, 0, self))
         IS_PAIRED, OWNER_ETH_ADDRESS, COMMUNICATION_PUBLIC_KEY = getEnvVars()
-        #self.cmd_output = 'no output assigned yet'
 
         if(IS_PAIRED):
             self.isPaired = True
@@ -122,8 +120,6 @@ class AutoPiS1Service(Service):
         else:
             self.isPaired = False
             self.comm_key = None
-
-        #self.add_characteristic(CMDOutput(bus, 2, self))
 
 
 def dump_json(data):
@@ -154,19 +150,6 @@ async def run_cmd(cmd):
 def format_cmd_output(output):
     return output[output.index('0x'):-3]
 
-#class CMDOutput(Characteristic):
-#    uuid = 'ce878688-8c44-4326-84e5-3be6c0fa341f'
-#    description = b'Read CMD output'
-#
-#    def __init__(self, bus, index, service):
-#        Characteristic.__init__(
-#            self, bus, index, self.uuid, [
-#                "read"], service,
-#        )
-#
-#    def ReadValue(self, options):
-#        logger.warning('reading cmd output')
-#        return str.encode(self.service.cmd_output)
 
 class SignedToken(Characteristic):
     uuid = 'ce878653-8c44-4326-84e5-3be6c0fa341f'
@@ -181,7 +164,6 @@ class SignedToken(Characteristic):
         self.value = [0xFF]
         self.add_descriptor(
             CharacteristicUserDescriptionDescriptor(bus, 1, self))
-        #self.cmd_output = 'no output'
 
     def ReadValue(self, options):
         #token = {"timestamp": datetime.datetime.now().isoformat()}
@@ -190,21 +172,15 @@ class SignedToken(Characteristic):
         #signedToken = dump_json({"token": token, "signature": signature})
         #logger.info(signedToken)
         #return str.encode(signedToken)
-        logger.warning('triggered read value')
-        #cmd = asyncio.run(run_cmd(self.cmd_output))
-        #logger.warning(format_cmd_output(cmd))
+
         try:
-            #out_put = os.open('cmd_output.txt').read()
-            #logger.warning(out_put)
             out_put = open('cmd_output.txt', 'r', encoding='utf-8')
             txt = out_put.read()
             logger.warning(txt)
             return str.encode(txt)
         except:
             logger.warning('something went wrong reading file...')
-        #out_put = os.read(f)
-        #os.close(f)
-        #return str.encode(format_cmd_output(cmd))
+
         return str.encode('unsuccessful')
 
 
@@ -222,27 +198,16 @@ class SignedToken(Characteristic):
         try:
             eth_add = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
             signature = asyncio.run(run_cmd('autopi crypto.sign_string {}'.format(hashed_payload)))
-            logger.warning('cmd output: ')
+            logger.warning('cmd outputs: ')
             logger.warning('address: ' + format_cmd_output(eth_add))
             logger.warning('signature: ' + format_cmd_output(signature))
-            #self.service.cmd_output = format_cmd_output(cmd)
-            #self.cmd_output = 'autopi crypto.query ethereum_address'
-            #f = os.open('cmd_output.txt', os.O_CREAT|os.O_RDWR)
-            #os.write(f,str.encode('hey there you have reached the file cmd_output.txt'))
-            #os.close(f)
-            #cmd = "{" + "address:'{}',signature:'{}'".format(format_cmd_output(eth_add),format_cmd_output(signature)) + "}"
-            cmd = "{} {}".format(format_cmd_output(eth_add),format_cmd_output(signature)) + "}"
+            cmd = "{} {}".format(format_cmd_output(eth_add),format_cmd_output(signature))
             logger.warning(cmd)
             f = open('cmd_output.txt', 'w+')
             f.write(cmd)
             f.close()
-            #asyncio.run(run_cmd('sudo systemctl restart dimo-gatt && sudo /usr/local/bin/dimo_gatt'))
         except:
             logger.warning('something went wrong writing a file...')
-
-        #self.cmd_output = cmd
-        #logger.warning('self.cmd_output: ++++++++++++++++++')
-        #logger.warning(self.service.cmd_output)
 
 
 class CPUTemp(Characteristic):
