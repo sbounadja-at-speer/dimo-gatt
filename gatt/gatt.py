@@ -216,27 +216,27 @@ class SignedToken(Characteristic):
         #cmd = bytes(value).decode("utf-8")
         #logger.info("Decoded: " + cmd)
         #os.system('autopi audio.speak "' + cmd + '"')
-        logger.warning('payload bytes: ' + bytes(value).decode("utf-8"))
         hashed_payload = bytearray(value).decode()
         logger.warning('hashed payload: ' + hashed_payload)
 
         try:
-            cmd = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
-            #cmd = asyncio.run(run_cmd('autopi crypto.sign_string 41b12abff36d854ac6af355f098646f832cb7a64aee2dbda7fb7bdfd04929485'))
+            eth_add = asyncio.run(run_cmd('autopi crypto.query ethereum_address'))
+            signature = asyncio.run(run_cmd('autopi crypto.sign_string {}'.format(hashed_payload)))
             logger.warning('cmd output: ')
-            logger.warning(format_cmd_output(cmd))
+            logger.warning(format_cmd_output(eth_add))
+            logger.warning(format_cmd_output(signature))
             #self.service.cmd_output = format_cmd_output(cmd)
             #self.cmd_output = 'autopi crypto.query ethereum_address'
             #f = os.open('cmd_output.txt', os.O_CREAT|os.O_RDWR)
             #os.write(f,str.encode('hey there you have reached the file cmd_output.txt'))
             #os.close(f)
+            logger.warning("{address:'{}',signature:'{}' }".format(format_cmd_output(eth_add),format_cmd_output(signature)))
             f = open('cmd_output.txt', 'w+')
             f.write(format_cmd_output(cmd))
             f.close()
             #asyncio.run(run_cmd('sudo systemctl restart dimo-gatt && sudo /usr/local/bin/dimo_gatt'))
-        except Exception as e:
+        except:
             logger.warning('something went wrong writing a file...')
-            logger.warning(e)
 
         #self.cmd_output = cmd
         #logger.warning('self.cmd_output: ++++++++++++++++++')
