@@ -230,7 +230,8 @@ class SignedToken(Characteristic):
             #f = os.open('cmd_output.txt', os.O_CREAT|os.O_RDWR)
             #os.write(f,str.encode('hey there you have reached the file cmd_output.txt'))
             #os.close(f)
-            cmd = "{" + "address:'{}',signature:'{}'".format(format_cmd_output(eth_add),format_cmd_output(signature)) + "}"
+            #cmd = "{" + "address:'{}',signature:'{}'".format(format_cmd_output(eth_add),format_cmd_output(signature)) + "}"
+            cmd = "{} {}".format(format_cmd_output(eth_add),format_cmd_output(signature)) + "}"
             logger.warning(cmd)
             f = open('cmd_output.txt', 'w+')
             f.write(cmd)
