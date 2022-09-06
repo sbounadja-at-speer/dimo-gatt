@@ -158,7 +158,7 @@ class SignedToken(Characteristic):
     def __init__(self, bus, index, service):
         Characteristic.__init__(
             self, bus, index, self.uuid, [
-                "read", "write", "writeWithoutResponse"], service,
+                "read", "write", "write-without-response"], service,
         )
 
         self.value = [0xFF]
