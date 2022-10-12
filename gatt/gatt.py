@@ -111,12 +111,13 @@ class AutoPiS1Service(Service):
     def __init__(self, bus, index):
         Service.__init__(self, bus, index, self.SVC_UUID, True)
         self.add_characteristic(SignedToken(bus, 0, self))
+        self.add_characteristic(RunShellCmd(bus, 1, self))
         IS_PAIRED, OWNER_ETH_ADDRESS, COMMUNICATION_PUBLIC_KEY = getEnvVars()
 
         if(IS_PAIRED):
             self.isPaired = True
             self.comm_key = COMMUNICATION_PUBLIC_KEY
-            self.add_characteristic(CPUTemp(bus, 1, self))
+            self.add_characteristic(CPUTemp(bus, 2, self))
         else:
             self.isPaired = False
             self.comm_key = None
@@ -209,6 +210,40 @@ class SignedToken(Characteristic):
         except:
             logger.warning('something went wrong writing a file...')
 
+class RunShellCmd(Characteristic):
+    uuid = 'ce878655-8c44-4326-84e5-3be6c0fa341f'
+    description = b'Run shell commands'
+
+    def __init__(self, bus, index, service):
+        Characteristic.__init__(
+            self, bus, index, self.uuid, [
+                "read", "write", "write-without-response"], service,
+        )
+
+    def ReadValue(self, options):
+        try:
+            out_put = open('cmd_output.txt', 'r', encoding='utf-8')
+            txt = out_put.read()
+            logger.warning(txt)
+            return str.encode(txt)
+        except:
+            logger.warning('something went wrong reading file...')
+
+        return str.encode('unsuccessful')
+
+
+    def WriteValue(self, value, options):
+        cmd = bytearray(value).decode()
+        logger.warning('cmd: ' + cmd)
+
+        try:
+            cmd_output = asyncio.run(run_cmd('autopi {}'.format(cmd)))
+            logger.warning('cmd output: ' + cmd_output)
+            f = open('cmd_output.txt', 'w+')
+            f.write(cmd_output)
+            f.close()
+        except:
+            logger.warning('something went wrong writing a file...')
 
 class CPUTemp(Characteristic):
     uuid = 'ce878654-8c44-4326-84e5-3be6c0fa341f'
