@@ -238,6 +238,8 @@ class RunShellCmd(Characteristic):
 
         try:
             cmd_output = asyncio.run(run_cmd('autopi {}'.format(cmd)))
+            if not cmd_output:
+                cmd_output = 'error:' + cmd;
             logger.warning('cmd output: ' + cmd_output)
             f = open('./cmd_output.txt', 'w+')
             f.write(cmd_output)
