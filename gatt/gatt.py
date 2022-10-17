@@ -175,7 +175,7 @@ class SignedToken(Characteristic):
         #return str.encode(signedToken)
 
         try:
-            out_put = open('./output_files/cmd_output.txt', 'r', encoding='utf-8')
+            out_put = open('./cmd_output.txt', 'r', encoding='utf-8')
             txt = out_put.read()
             logger.warning(txt)
             return str.encode(txt)
@@ -222,7 +222,7 @@ class RunShellCmd(Characteristic):
 
     def ReadValue(self, options):
         try:
-            out_put = open('cmd_output.txt', 'r', encoding='utf-8')
+            out_put = open('./cmd_output.txt', 'r', encoding='utf-8')
             txt = out_put.read()
             logger.warning(txt)
             return str.encode(txt)
@@ -239,12 +239,12 @@ class RunShellCmd(Characteristic):
         try:
             cmd_output = asyncio.run(run_cmd('autopi {}'.format(cmd)))
             logger.warning('cmd output: ' + cmd_output)
-            f = open('./output_files/cmd_output.txt', 'w+')
+            f = open('./cmd_output.txt', 'w+')
             f.write(cmd_output)
             f.close()
         except:
             logger.warning('something went wrong writing a file...')
-            f = open('./output_files/cmd_output.txt', 'w+')
+            f = open('./cmd_output.txt', 'w+')
             f.write('error thrown when executing:' + cmd)
             f.close()
 
