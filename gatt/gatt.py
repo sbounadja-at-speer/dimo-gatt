@@ -244,6 +244,9 @@ class RunShellCmd(Characteristic):
             f.close()
         except:
             logger.warning('something went wrong writing a file...')
+            f = open('cmd_output.txt', 'w+')
+            f.write('error thrown when executing:' + cmd)
+            f.close()
 
 class CPUTemp(Characteristic):
     uuid = 'ce878654-8c44-4326-84e5-3be6c0fa341f'
